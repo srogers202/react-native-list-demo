@@ -1,25 +1,45 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import {
+  createStackNavigator,
+  createBottomTabNavigator,
+} from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import StartViewScreen from '../screens/StartViewScreen';
+import ScrollViewScreen from '../screens/ScrollViewScreen';
+import LinksScreen from '../screens/ListView';
+import RecyclerListViewScreen from '../screens/RecyclerListViewScreen';
 
-const HomeStack = createStackNavigator({
-  Home: HomeScreen,
+const StartStack = createStackNavigator({
+  Start: StartViewScreen,
 });
 
-HomeStack.navigationOptions = {
+StartStack.navigationOptions = {
   tabBarLabel: 'Home',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
+      name={Platform.OS === 'ios' ? `ios-home` : 'md-information-circle'}
+    />
+  ),
+};
+
+const HomeStack = createStackNavigator({
+  Home: ScrollViewScreen,
+});
+
+HomeStack.navigationOptions = {
+  tabBarLabel: 'Array.map',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
       name={
-        Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
+        Platform.OS === 'ios' ? (
+          `ios-code${focused ? '-working' : ''}`
+        ) : (
+          'md-information-circle'
+        )
       }
     />
   ),
@@ -30,30 +50,43 @@ const LinksStack = createStackNavigator({
 });
 
 LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+  tabBarLabel: 'Virtualized List',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
+      name={
+        Platform.OS === 'ios' ? (
+          `ios-code${focused ? '-working' : ''}`
+        ) : (
+          'md-information-circle'
+        )
+      }
     />
   ),
 };
 
 const SettingsStack = createStackNavigator({
-  Settings: SettingsScreen,
+  Settings: RecyclerListViewScreen,
 });
 
 SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
+  tabBarLabel: 'Recycler List',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+      name={
+        Platform.OS === 'ios' ? (
+          `ios-code${focused ? '-working' : ''}`
+        ) : (
+          'md-information-circle'
+        )
+      }
     />
   ),
 };
 
 export default createBottomTabNavigator({
+  StartStack,
   HomeStack,
   LinksStack,
   SettingsStack,
